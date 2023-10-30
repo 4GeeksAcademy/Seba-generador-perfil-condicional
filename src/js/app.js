@@ -33,14 +33,20 @@ function render(variables = {}) {
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/school/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          <h1>${variables.name !== null ? `${variables.name} ` : "Nombre"} ${variables.lastName !== null ? `${variables.lastName} ` : "Apellido"
+    }</h1>
+          <h2>${variables.role !== null ? `${variables.role} ` : "Rol"}</h2>
+          <h3>${variables.city !== null ? `${variables.city} ` : "Ciudad"}, ${variables.country !== null ? `${variables.country} ` : "Pais"
+    }</h3>
+          <ul class="${variables.socialMediaPosition}">
+            <li><a href="https://twitter.com/${variables.twitter !== null ? `${variables.twitter} ` : `home`
+    }"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="https://github.com/${variables.github !== null ? `${variables.github} ` : `home`
+    }"><i class="fab fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/${variables.linkedin !== null ? `${variables.linkedin} ` : ``
+    }"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="https://instagram.com/${variables.instagram !== null ? `${variables.instagram} ` : ``
+    }"><i class="fab fa-instagram"></i></a></li>
           </ul>
         </div>
     `;
@@ -49,7 +55,7 @@ function render(variables = {}) {
 /**
  * Don't change any of the lines below, here is where we do the logic for the dropdowns
  */
-window.onload = function() {
+window.onload = function () {
   window.variables = {
     // if includeCover is true the algorithm should show the cover image
     includeCover: true,
@@ -72,8 +78,8 @@ window.onload = function() {
   };
   render(window.variables); // render the card for the first time
 
-  document.querySelectorAll(".picker").forEach(function(elm) {
-    elm.addEventListener("change", function(e) {
+  document.querySelectorAll(".picker").forEach(function (elm) {
+    elm.addEventListener("change", function (e) {
       // <- add a listener to every input
       const attribute = e.target.getAttribute("for"); // when any input changes, collect the value
       let values = {};
@@ -81,10 +87,10 @@ window.onload = function() {
         this.value == "" || this.value == "null"
           ? null
           : this.value == "true"
-          ? true
-          : this.value == "false"
-          ? false
-          : this.value;
+            ? true
+            : this.value == "false"
+              ? false
+              : this.value;
       render(Object.assign(window.variables, values)); // render again the card with new values
     });
   });
